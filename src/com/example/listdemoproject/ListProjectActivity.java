@@ -78,11 +78,11 @@ public class ListProjectActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_project);
-
+		
 		mItems = new ArrayList<Item>();
-		mItems.add(new Item("Tennis", "Mark", false));
-		mItems.add(new Item("Basketball", "Donnis", true));
-		mItems.add(new Item("Flybee", "Allis", true));
+		for (int i = 0; i < 20; i++) {
+			mItems.add(new Item(String.valueOf(i), String.valueOf(i), (i % 2) == 0));
+		}
 		
 		mAdapter = new ItemAdapter(this, R.layout.list_twoline_item_checkbox, mItems);
 		
@@ -99,6 +99,9 @@ public class ListProjectActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {		
 		Item item = (Item) l.getItemAtPosition(position);
+		item.isChecked = !item.isChecked;
+		
+		l.getAdapter().getView(position, v, l);		
 		Toast.makeText(this, "Click: " + item.caption, Toast.LENGTH_SHORT).show();
 	}
 
